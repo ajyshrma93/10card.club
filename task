@@ -1,0 +1,26 @@
+1. need to create and admin dashboard, just think what should have then you just do it.
+ - approve news from customer,
+ - approve merchant from bank input
+ - create news (only for admin, not for customer, please fix )
+ - can see all card form all bank.
+ - can leave a note for the cards , then that back account will received notification
+ - think whatever feature you can then add it.
+
+2. customer feature:
+ 2.1 customer should be able to find credited in our system and add this cards as he own it.
+ 2.2 customer profile info should insert some info:
+  - basic monthly salary (tell why to fill: to able to suggest which card is avaialble for you)
+  - work duration of your current company
+   - less then 3 month, more then 3 months , more then 6 months, more then a years
+  - phone (when apply, to allow bank staff to contact you)
+ 2.3. "you can apply " (show the cards image and some info )
+   - company name
+   - offer letter take photo
+   - paysleep 3 months,
+   - epf 3 months
+   - submit button
+
+3. inbox system
+ - when customer apply, they can received chat with bank.
+
+4. create an account for bank staff which only for customer services for inbox chat regarding application of cards.
