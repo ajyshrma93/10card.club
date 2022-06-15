@@ -57,8 +57,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-subcard-details', [UserController::class, 'updateSubCardDetails'])->name('update_user_card_subcard_detail');
     Route::post('/reload-card-dates', [UserController::class, 'reloadCardDates'])->name('reload_user_card_details');
     Route::get('apply/{id}/card', [CardApplicationController::class, 'apply'])->name('apply_for_card');
-    Route::post('apply/{id}/card', [CardApplicationController::class, 'saveApplication'])->name('apply_for_card');
+    Route::get('redirect/{id}/card', [CardApplicationController::class, 'saveApplication'])->name('redirect.to.apply.card');
     Route::get('my-applications', [CardApplicationController::class, 'myApplications'])->name('my_applications');
+    Route::get('card-applications', [CardApplicationController::class, 'supportApplications'])->name('support.agent.card.applications');
 
     Route::get('/my-cards', [UserController::class, 'myCards'])->name('my_cards');
     Route::get('/card-support/{id}/messages', [CardApplicationController::class, 'messages'])->name('application_chat');
@@ -68,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
 
 //// bank admin routes
 Route::group(['middleware' => ['auth', 'bank_admin']], function () {
+
+    Route::get('dashboard', [BankController::class, 'dashboard'])->name('bank.dashboard');
     Route::get('/news/list', [NewsController::class, 'newsList'])->name('news_list');
     Route::get('/news/create', [NewsController::class, 'createForm'])->name('news_create');
     Route::post('/news/create', [NewsController::class, 'create']);

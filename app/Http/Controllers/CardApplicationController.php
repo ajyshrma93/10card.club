@@ -24,44 +24,16 @@ class CardApplicationController extends Controller
     public function saveApplication($id, Request $request)
     {
         $card = Card::findOrFail($id);
-        $data =  $request->validate([
-            'company_name' => 'required',
-            'card_id' => 'required',
-            'offer_letter' => 'required|mimes:jpeg,bmp,png,jpg,pdf',
-            'salary_slip' => 'required|mimes:jpeg,bmp,jpg,png,pdf',
-            'epf' => 'required|mimes:jpeg,bmp,png,jpg,pdf',
-
-        ], [
-            'offer_letter.required' => 'Please upload your company offer letter',
-            'salary_slip.required' => 'Please upload your last 3 months salary slip',
-            'epf.required' => 'Please upload your last 3 months salary slip',
-        ]);
-
-        $file = $request->file('offer_letter');
-        $fileName = Str::random(32) . $file->getClientOriginalName();
-        $filePath = $file->storeAs('uploads/application', $fileName, 'public');
-        $data['offer_letter'] = 'storage/' . $filePath;
-
-        $file = $request->file('salary_slip');
-        $fileName = Str::random(32) . $file->getClientOriginalName();
-        $filePath = $file->storeAs('uploads/application', $fileName, 'public');
-        $data['salary_slip'] = 'storage/' . $filePath;
-
-        $file = $request->file('epf');
-        $fileName = Str::random(32) . $file->getClientOriginalName();
-        $filePath = $file->storeAs('uploads/application', $fileName, 'public');
-        $data['epf'] = 'storage/' . $filePath;
-        $data['user_id'] = auth()->id();
-        $data['bank_id'] = $card->bank_id;
-        try {
-            $application = CardApplication::create($data);
-            Session::flash('success', 'Your application for credit card ' . $card->card_name . ' has been submitted successfully');
-            return redirect(route('my_applications'));
-        } catch (\Exception $e) {
-
-            Session::flash('error', 'Something went wrong. Please try again later' . $e->getMessage());
-            return back();
+        $exists = CardApplication::where(['user_id' => auth()->id(), 'card_id' => $card->id])->first();
+        if (!$exists) {
+            $newApplication = new CardApplication();
+            $newApplication->card_id = $card->id;
+            $newApplication->bank_id = $card->bank_id;
+            $newApplication->user_id = auth()->id();
+            $newApplication->save();
         }
+
+        return redirect()->to($card->card_info_url);
     }
 
     public function checkIsApplied($id)
@@ -83,6 +55,11 @@ class CardApplicationController extends Controller
         return view('my_card_applications', compact('applications'));
     }
 
+    public function supportApplications()
+    {
+        $applications = CardApplication::orderByDesc('id')->get();
+        return view('card_applications', compact('applications'));
+    }
 
     public function messages($id)
     {

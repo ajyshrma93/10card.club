@@ -19,7 +19,7 @@
 @else
 <!-- Message to the right -->
 <div class="direct-chat-msg right">
-    <div class="direct-chat-info clearfix">
+    <div class="direct-chat-info clearfix text-end">
         <span class="direct-chat-name pull-right">You</span>
         <span class="direct-chat-timestamp pull-left">{{$chat->created_at->format('h:i a')}}</span>
     </div>

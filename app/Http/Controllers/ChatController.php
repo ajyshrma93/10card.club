@@ -37,6 +37,7 @@ class ChatController extends Controller
         $reposne['status'] = 200;
         $html = '';
         foreach ($messages as $chat) {
+            $chat->update(['is_new'=>0]);
             $html .= view('includes.chat_messages', compact('chat'))->render();
         }
 

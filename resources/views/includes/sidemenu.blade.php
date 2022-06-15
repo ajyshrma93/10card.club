@@ -13,14 +13,17 @@
         {{$user['name']}}
         @endif
         @endif
+
     </div>
     <div class="d-flex justify-content-end p-3">
         <a href="#" class="toggle-nav menu-close-btn"></a>
     </div>
     <ul class="navbar-nav">
+
         <li class="nav-item active" data-animation-delay="100ms" data-link-bg-color="#16a085">
             <a class="nav-link" aria-current="page" href="{{route('home')}}">Home</a>
         </li>
+
         @if (!auth()->check())
         @foreach ($users as $user)
         <li class="nav-item " data-animation-delay="300ms" data-link-bg-color="#b92990">
@@ -38,6 +41,9 @@
         $user_type = $auth_user->user_type->toArray();
         @endphp
         @if ($user_type['name'] == 'card_admin')
+        <li class="nav-item" data-animation-delay="200ms" data-link-bg-color="#29b865">
+            <a class="nav-link" href="{{route('bank.dashboard')}}">Dashboard</a>
+        </li>
         <li class="nav-item" data-animation-delay="200ms" data-link-bg-color="#29b865">
             <a class="nav-link" href="{{route('merchant_list')}}">Merchants</a>
         </li>
@@ -60,6 +66,11 @@
         </li>
         <li class="nav-item " data-animation-delay="300ms" data-link-bg-color="#b92990">
             <a class="nav-link" href="{{route('my_applications')}}">My Applications</a>
+        </li>
+        @endif
+        @if ($user_type['name'] == 'service_agent')
+        <li class="nav-item " data-animation-delay="300ms" data-link-bg-color="#b92990">
+            <a class="nav-link" href="{{route('support.agent.card.applications')}}">Card Applications</a>
         </li>
         @endif
         <li class="nav-item " data-animation-delay="300ms" data-link-bg-color="#b92990">

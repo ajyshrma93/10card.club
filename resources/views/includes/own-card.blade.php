@@ -9,10 +9,10 @@
 </div>
 @else
 <div class="row mt-2">
-    <a class="col-md-12 col-6 " style="text-decoration: none;color: #000944;" data-bs-toggle="modal" data-card-id="{{$card->id}}" data-card-title="{{$card->card_name}}" data-bs-target="#addCardToOwn">
+    <!-- <a class="col-md-12 col-6 " style="text-decoration: none;color: #000944;" data-bs-toggle="modal" data-card-id="{{$card->id}}" data-card-title="{{$card->card_name}}" data-bs-target="#addCardToOwn">
         <i class="fa fa-bookmark-o" style="color:#03c966;font-size:20px"></i>
         Mark As Owned
-    </a>
+    </a> -->
     <div class="col-md-12  col-6 ">
         @if(auth()->user()->hasApplication($card->id))
         <a href="{{route('my_applications')}}" style="text-decoration: none;color: #000944;">

@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('title', 'Card Details')
 @section('content')
+<style>
+    .dropdown-menu[data-bs-popper] {
+        right: 0x !important;
+    }
+</style>
 <div class="main-wrapper">
     <div class="mainContainer">
         @include('includes.sidemenu')
@@ -19,7 +24,20 @@
                         <h1 class="small fw-medium text-center m-0">Card Details</h1>
                     </div>
                     <div>
+                        @auth
+                        <div class="dropdown">
+                            <a class="btn btn-secondary " type="button" data-bs-toggle="dropdown">
+                                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                            </a>
+                            <div class="dropdown-menu" style="left :unset;right:0">
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-card-id="{{$card->id}}" data-card-title="{{$card->card_name}}" data-bs-target="#addCardToOwn">Mark as Owned</a>
+
+                            </div>
+                        </div>
+                        @else
                         <a href="#" class="humburger-menu-btn toggle-nav d-block"></a>
+
+                        @endauth
                     </div>
                 </div>
             </nav>
@@ -282,6 +300,7 @@ $userCard  = \App\Models\UserCard::where(['user_id' => auth()->id(), 'card_id' =
 </div>
 @endif
 
+@auth
 
 @php
 $userCards =auth()->user()->cards;
@@ -295,6 +314,7 @@ $userCards =auth()->user()->cards;
     @include('includes.modals.serviceTax-modal',['userCards'=>$userCards])
 </div>
 @endif
+@endauth
 
 
 <!-- My Card Detials Modal Ends -->

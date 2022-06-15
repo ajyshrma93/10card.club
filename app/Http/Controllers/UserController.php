@@ -24,6 +24,9 @@ class UserController extends Controller
     {
         $user = $this->user->find($id);
         Auth::login($user);
+        if ($user->user_type_id == 2) {
+            return redirect()->route('bank.dashboard');
+        }
 
         if ($user->user_type_id != 5) {
             return redirect()->route('home');

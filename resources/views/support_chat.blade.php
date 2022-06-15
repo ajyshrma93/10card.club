@@ -97,7 +97,7 @@
             })
         }
     }
-    setInterval(loadNewMessage, 1500);
+    setInterval(loadNewMessage, 2000);
 
     function loadNewMessage() {
 
@@ -110,12 +110,21 @@
             },
             success: function(response) {
                 if (response.status == 200) {
-                    $('.direct-chat-messages').append(response.html);
-                    scrollMessage();
+                    if (response.html) {
+                        $('.direct-chat-messages').append(response.html);
+                        scrollMessage();
+                    }
                 }
             }
         })
     }
+
+    $('body').on('keypress', '[name="message"]', function(e) {
+        e.preventDefault();
+        if (e.charCode == 13) {
+            sendMessage();
+        }
+    })
 </script>
 
 @endsection
